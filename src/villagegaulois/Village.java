@@ -23,9 +23,31 @@ public class Village {
 		
 		void utiliserEtal(int indiceEtal, Gaulois vendeur, String produit, int nbProduit) {
 			
+			etals[indiceEtal].occuperEtal(vendeur, produit, nbProduit);
 			
 		}
 		
+		int trouverEtalLibre() {
+			for (int i = 0; i < etals.length; i++) {
+				if (etals[i].isEtalOccupe()) {
+					return i;
+				}
+			return -1;
+			}
+		}
+		
+		trouverEtals(String produit){
+			
+		}
+		
+		trouverVendeur(Gaulois gaulois){
+			
+		}
+		
+		afficherMarche(){
+			
+			
+		}
 		
 	}
 	
