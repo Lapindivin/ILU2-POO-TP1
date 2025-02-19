@@ -1,5 +1,7 @@
 package villagegaulois;
 
+import java.util.Iterator;
+
 import personnages.Chef;
 import personnages.Gaulois;
 
@@ -21,41 +23,78 @@ public class Village {
 			}
 		}
 		
-		void utiliserEtal(int indiceEtal, Gaulois vendeur, String produit, int nbProduit) {
+		public void utiliserEtal(int indiceEtal, Gaulois vendeur, String produit, int nbProduit) {
 			
 			etals[indiceEtal].occuperEtal(vendeur, produit, nbProduit);
 			
 		}
 		
-		int trouverEtalLibre() {
+		public int trouverEtalLibre() {
 			for (int i = 0; i < etals.length; i++) {
-				if (etals[i].isEtalOccupe()) {
+				if (!etals[i].isEtalOccupe()) {
 					return i;
 				}
-			return -1;
 			}
+			return -1;
 		}
 		
-		trouverEtals(String produit){
+		public Etal[] trouverEtals(String produit) {
+			
+			int count=0;
+			
+			for (int i = 0; i < etals.length; i++) {
+				if (etals[i].contientProduit(produit)) {
+					count++;
+				}
+			}
+			
+			Etal[] etal_produit = new Etal[count];
+			
+			int pos=0;
+			
+			for (int j = 0; j < etal_produit.length; j++) {
+				if (etals[j].contientProduit(produit)) {
+					etal_produit[pos] = etals[j];
+					pos++;
+				}
+			}
+			return etal_produit;
 			
 		}
 		
-		trouverVendeur(Gaulois gaulois){
-			
+		public Etal trouverVendeur(Gaulois gaulois) {
+			for (int i = 0; i < etals.length; i++) {
+				if (etals[i].isEtalOccupe()) {
+					if (etals[i].getVendeur()==gaulois) {
+						return etals[i];
+					}
+				}
+			}
+			return null;
 		}
 		
-		afficherMarche(){
-			
-			
-		}
+//		public String afficherMarche() {
+//			for (int i = 0; i < etals.length; i++) {
+//				if (condition) {
+//					
+//				}
+//			}
+//			if (condition) {
+//				”Il reste " +
+//				nbEtalVide + " étals non utilisés dans le marché.\n”.
+//
+//			}
+//		}
+		
 		
 	}
 	
 	
 
-	public Village(String nom, int nbVillageoisMaximum) {
+	public Village(String nom, int nbVillageoisMaximum,int nbEtal) {
 		this.nom = nom;
 		villageois = new Gaulois[nbVillageoisMaximum];
+		marche = new Marche(nbEtal);
 	}
 
 	public String getNom() {
